@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chelsea's Heart Rate</title>
+</head>
+<style>
+@font-face {
+        font-family: "Digi Grotesk";
+        src: url("/DigiGrotesk-BoldCondensed.ttf") format("truetype");
+}
+
+body {
+        background-color: Black;
+        color: CornSlik;
+        margin-left: 5%;
+        margin-right: 5%;
+        text-align: center;
+        font-family: "Digi Grotesk", sans-serif;
+}
+
+img {
+        width: 80%;
+        max-width: 500px;
+        margin-left: 5%;
+        margin-right: 5%;
+}
+
+med-blue {
+        font-size: 2.5em;
+        color: CornSilk;
+        text-align: center;
+        font-family: "Digi Grotesk", sans-serif;
+
+}
+
+big-red {
+        font-size: 4em;
+        color: CornSilk;
+        font-family: "Digi Grotesk", sans-serif;
+}
+
+italic-black {
+        font-size: 2em;
+        color: CornSilk;
+        font-family: "Digi Grotesk", sans-serif;
+}
+
+a:link {
+        font-size: 2.5em;
+        color: CornSilk;
+        text-align: center;
+        font-family: "Digi Grotesk", sans-serif;
+}
+
+a:visited {
+        font-size: 2.5em;
+        color: darkgray;
+        text-align: center;
+        font-family: "Digi Grotesk", sans-serif;
+}
+
+copy-right {
+        font-size: 0.5em;
+        color: lightgrey;
+        font-family: "Digi Grotesk", sans-serif;
+}
+</style>
+<body>
+<a href="http://192.168.220.1:5000"><br><br>More Info<br><br></a>
+<big-red>Heart Rate<br></big-red>
+<med-blue>Raw Data Output:<br></med-blue>
+<italic-black>(Rate is read by observing peaks and valleys in number sequence.)<br><br></italic-black>
+<div id="output" style="text-align:center;margin:AUTO;width:200px;height:850px;overflow-y:scroll">
+        <italic-black><p id="data"</p></italic-black>
+</div>
+<br><br>
+<big-red>Ambient Temperature Sensor<br></big-red>
+<med-blue>Raw Data Output:<br></med-blue>
+<italic-black>(Measured in Celsius)<br><br></italic-black>
+<div id="output2" style="text-align:center;margin:AUTO;width:350px;height:850px;overflow-y:scroll">
+        <italic-black><p id="motion"</p></italic-black>
+</div>
+    <script src="/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<script>
+        window.setInterval(function() {
+        var elem = document.getElementById('output');
+        elem.scrollTop = elem.scrollHeight;
+        }, 100);
+    </script>
+    <script>
+          var d = "";
+          var x = "<br>";
+          var socket = io.connect();
+          socket.on('news', function (data) {
+            d += data + x;
+            document.getElementById('data').innerHTML = d;
+            console.log(data);
+          });
+    </script>
+    <script>
+          var f = "";
+          var socket = io.connect();
+          socket.on('news2', function (data) {
+            f = data;
+            document.getElementById('motion').innerHTML = f;
+            console.log(data);
+          });
+    </script>
+</body>
+</html>
